@@ -9,13 +9,17 @@ Gradio app: upload an image, get a prediction across the 10 CIFAR-10 classes
 
 ## Architecture
 
-```
-X ──┐
-    ├─> Z1 = XW1 + b1 ──> ReLU ──> A1 ──┐
-W1 ─┘                                 ├─> Scores = A1W2 + b2 ──> Softmax ──> L
-b1 ───────────────────────────────────┘
-W2, b2 ───────────────────────────────^
-y ─────────────────────────────────────^
+```mermaid
+flowchart LR
+    X((X)) --> Z1["Z1 = XW1 + b1"]
+    W1((W1)) --> Z1
+    b1((b1)) --> Z1
+    Z1 --> ReLU((ReLU)) --> A1((A1))
+    A1 --> Scores["Scores = A1W2 + b2"]
+    W2((W2)) --> Scores
+    b2((b2)) --> Scores
+    Scores --> Softmax((Softmax)) --> L((Loss L))
+    y((y)) --> L
 ```
 
 Fully connected layer → ReLU → fully connected layer → softmax cross-entropy
